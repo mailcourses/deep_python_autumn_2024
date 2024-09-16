@@ -84,7 +84,7 @@ class TestUser(unittest.TestCase):
     def test_friends_no_filter(self, mock_api):
         usr = User("steve", 42)
 
-        def get_friends(*a, **kw):
+        def get_friends(*_, **__):
             return ["voz", "lisa"]
 
         mock_api.side_effect = get_friends
