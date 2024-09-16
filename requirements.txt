@@ -1,0 +1,6 @@
+aiohttp==3.10.5
+
+flake8==7.1.0
+pylint==3.2.7
+pytest==8.3.2
+coverage==7.6.1
