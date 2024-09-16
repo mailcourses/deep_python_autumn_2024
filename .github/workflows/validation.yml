@@ -1,0 +1,38 @@
+name: Validation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  validate_homeworks:
+    name: Validate all homeworks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5.2.0
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check flake8
+        run: flake8 .
+
+      - name: Check pylint
+        if: ${{ always() }}
+        run: pylint ./*/*.py
+
+      - name: Check tests with pytest
+        if: ${{ always() }}
+        run: coverage run -m pytest .
+
+      - name: Check test coverage
+        run: coverage report -m
